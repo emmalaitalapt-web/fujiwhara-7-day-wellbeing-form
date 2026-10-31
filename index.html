@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>7-Day Wellbeing Tracker | Fujiwhara Personal Training</title>
+  <meta name="description" content="Complete your daily sleep, food, drinks and wellbeing check-in for Fujiwhara Personal Training in Point Cook.">
+  <meta property="og:title" content="Fujiwhara 7-Day Wellbeing Tracker">
+  <meta property="og:description" content="A simple daily check-in for sleep, food, drinks and wellbeing.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://lively-jasper-prt9.here.now/">
+  <link rel="canonical" href="https://lively-jasper-prt9.here.now/">
+  <style>
+    :root {
+      --ink: #202923;
+      --ink-soft: #526057;
+      --brand: #24543f;
+      --brand-dark: #173d2e;
+      --brand-soft: #dce9df;
+      --accent: #c66a3a;
+      --accent-dark: #9d4827;
+      --paper: #fffdf8;
+      --canvas: #f2eee5;
+      --surface: #ffffff;
+      --line: #d9d7cf;
+      --line-strong: #a5aaa4;
+      --success: #22663d;
+      --success-bg: #e5f3e9;
+      --error: #a22d25;
+      --error-bg: #fbe9e7;
+      --focus: #1769aa;
+      --shadow: rgba(32, 41, 35, 0.12);
+      --white: #ffffff;
+      --overlay: rgba(255, 255, 255, 0.12);
+      --font-body: "Segoe UI", Arial, sans-serif;
+      --font-display: Georgia, "Times New Roman", serif;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; color: var(--ink); background: var(--canvas); font-family: var(--font-body); font-size: 1rem; line-height: 1.55; overflow-x: hidden; }
+    button, input, select, textarea { font: inherit; }
+    a { color: var(--brand-dark); }
+    :focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; }
+    .skip-link { position: absolute; z-index: 20; top: 0.5rem; left: 0.5rem; padding: 0.75rem 1rem; color: var(--white); background: var(--brand-dark); transform: translateY(-150%); }
+    .skip-link:focus { transform: translateY(0); }
+    .site-header { padding: 1rem clamp(1rem, 4vw, 2rem); color: var(--white); background: var(--brand-dark); }
+    .header-inner, main, .footer-inner { width: min(100%, 72rem); margin-inline: auto; }
+    .wordmark { display: flex; align-items: center; gap: 0.75rem; font-weight: 700; letter-spacing: 0.02em; }
+    .wordmark-mark { display: grid; width: 2.5rem; height: 2.5rem; place-items: center; border: 2px solid var(--overlay); border-radius: 50%; font-family: var(--font-display); font-size: 1.1rem; }
+    .wordmark small { display: block; font-size: 0.75rem; font-weight: 500; opacity: 0.8; }
+    main { padding: clamp(1.25rem, 4vw, 3rem) clamp(1rem, 4vw, 2rem) 4rem; }
+    .hero { display: grid; gap: 1.25rem; margin-bottom: 2rem; }
+    .eyebrow { margin: 0 0 0.5rem; color: var(--accent-dark); font-size: 0.82rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; }
+    h1, h2, h3 { margin-top: 0; color: var(--brand-dark); line-height: 1.15; }
+    h1 { max-width: 18ch; margin-bottom: 0.85rem; font-family: var(--font-display); font-size: clamp(2.25rem, 7vw, 4.75rem); font-weight: 500; letter-spacing: -0.03em; }
+    h2 { font-family: var(--font-display); font-size: clamp(1.65rem, 4vw, 2.35rem); font-weight: 500; }
+    h3 { margin-bottom: 0.35rem; font-size: 1.1rem; }
+    .lede { max-width: 62ch; margin: 0; color: var(--ink-soft); font-size: 1.08rem; }
+    .intro-card { align-self: end; padding: 1.25rem; border-left: 4px solid var(--accent); border-radius: 0 0.75rem 0.75rem 0; background: var(--paper); box-shadow: 0 0.5rem 1.5rem var(--shadow); }
+    .intro-card p { margin: 0; }
+    .intro-card p + p { margin-top: 0.65rem; color: var(--ink-soft); font-size: 0.92rem; }
+    .tracker-shell { display: grid; gap: 1.25rem; }
+    .progress-panel, .form-card, .confirmation { border: 1px solid var(--line); border-radius: 1rem; background: var(--surface); box-shadow: 0 0.6rem 2rem var(--shadow); }
+    .progress-panel { padding: 1rem; }
+    .progress-heading { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 0.35rem 1rem; margin-bottom: 0.9rem; }
+    .progress-heading h2 { margin: 0; font-family: var(--font-body); font-size: 1rem; font-weight: 800; }
+    .progress-copy { color: var(--ink-soft); font-size: 0.84rem; }
+    .day-tabs { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.5rem; }
+    .day-tab { position: relative; min-width: 0; min-height: 3.3rem; padding: 0.45rem 0.25rem; border: 1px solid var(--line-strong); border-radius: 0.65rem; color: var(--ink); background: var(--surface); cursor: pointer; font-weight: 750; }
+    .day-tab:hover { border-color: var(--brand); background: var(--brand-soft); }
+    .day-tab[aria-selected="true"] { border-color: var(--brand-dark); color: var(--white); background: var(--brand-dark); }
+    .day-tab[data-state="sent"]::after { content: "\2713"; display: inline-block; margin-left: 0.25rem; font-weight: 900; }
+    .day-tab[data-state="draft"]::after { content: ""; display: inline-block; width: 0.42rem; height: 0.42rem; margin-left: 0.35rem; border-radius: 50%; background: var(--accent); vertical-align: middle; }
+    .day-tab[aria-selected="true"]::after { background: var(--white); }
+    .legend { display: flex; flex-wrap: wrap; gap: 0.75rem 1.1rem; margin: 0.85rem 0 0; color: var(--ink-soft); font-size: 0.78rem; }
+    .legend span { display: inline-flex; align-items: center; gap: 0.35rem; }
+    .dot { width: 0.5rem; height: 0.5rem; border-radius: 50%; background: var(--accent); }
+    .tick { color: var(--success); font-weight: 900; }
+    .form-card { overflow: hidden; }
+    .form-top { padding: 1.25rem; color: var(--white); background: var(--brand); }
+    .form-top h2 { margin-bottom: 0.3rem; color: var(--white); }
+    .form-top p { margin: 0; opacity: 0.9; }
+    form { padding: clamp(1rem, 4vw, 2rem); }
+    fieldset { min-width: 0; margin: 0; padding: 0; border: 0; }
+    fieldset + fieldset { margin-top: 2.25rem; padding-top: 2rem; border-top: 1px solid var(--line); }
+    legend { width: 100%; margin-bottom: 0.3rem; padding: 0; color: var(--brand-dark); font-family: var(--font-display); font-size: 1.55rem; font-weight: 600; }
+    .section-help { margin: 0 0 1.15rem; color: var(--ink-soft); font-size: 0.9rem; }
+    .grid { display: grid; gap: 1rem; }
+    .field { min-width: 0; }
+    label, .group-label { display: block; margin-bottom: 0.35rem; font-weight: 750; }
+    .hint { display: block; margin-top: 0.3rem; color: var(--ink-soft); font-size: 0.8rem; }
+    input, select, textarea { width: 100%; min-height: 2.9rem; padding: 0.68rem 0.75rem; border: 1px solid var(--line-strong); border-radius: 0.5rem; color: var(--ink); background: var(--paper); }
+    input:hover, select:hover, textarea:hover { border-color: var(--brand); }
+    textarea { min-height: 6.5rem; resize: vertical; }
+    .meal-row { display: grid; gap: 0.7rem; }
+    .meal-row + .meal-row { margin-top: 1rem; }
+    .rating { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 0.45rem; }
+    .rating input { position: absolute; width: 1px; height: 1px; opacity: 0; }
+    .rating label { display: grid; min-height: 3rem; margin: 0; place-items: center; border: 1px solid var(--line-strong); border-radius: 0.5rem; background: var(--paper); cursor: pointer; }
+    .rating input:checked + label { border-color: var(--brand-dark); color: var(--white); background: var(--brand-dark); }
+    .rating input:focus-visible + label { outline: 3px solid var(--focus); outline-offset: 3px; }
+    .scale-ends { display: flex; justify-content: space-between; margin-top: 0.3rem; color: var(--ink-soft); font-size: 0.75rem; }
+    .privacy-note { margin: 2rem 0 1rem; padding: 1rem; border-radius: 0.65rem; background: var(--brand-soft); font-size: 0.9rem; }
+    .privacy-note strong { color: var(--brand-dark); }
+    .submit-row { display: flex; flex-direction: column; gap: 0.75rem; }
+    .button { display: inline-flex; align-items: center; justify-content: center; min-height: 3rem; padding: 0.75rem 1.2rem; border: 2px solid var(--brand-dark); border-radius: 0.6rem; color: var(--white); background: var(--brand-dark); cursor: pointer; font-weight: 800; text-decoration: none; }
+    .button:hover { border-color: var(--accent-dark); background: var(--accent-dark); }
+    .button:disabled { cursor: wait; opacity: 0.65; }
+    .button-secondary { color: var(--brand-dark); background: var(--surface); }
+    .button-secondary:hover { color: var(--white); }
+    .status { display: none; margin-top: 1rem; padding: 0.85rem 1rem; border-radius: 0.5rem; font-weight: 700; }
+    .status.is-visible { display: block; }
+    .status.success { color: var(--success); background: var(--success-bg); }
+    .status.error { color: var(--error); background: var(--error-bg); }
+    .confirmation { display: none; padding: clamp(1.25rem, 4vw, 2rem); }
+    .confirmation.is-visible { display: block; }
+    .confirmation-badge { display: inline-block; margin-bottom: 0.75rem; padding: 0.25rem 0.65rem; border-radius: 2rem; color: var(--success); background: var(--success-bg); font-weight: 800; }
+    .summary-list { display: grid; gap: 0; margin: 1.25rem 0; }
+    .summary-list div { display: grid; grid-template-columns: minmax(7rem, 0.45fr) 1fr; gap: 0.75rem; padding: 0.65rem 0; border-bottom: 1px solid var(--line); }
+    .summary-list dt { font-weight: 750; }
+    .summary-list dd { margin: 0; overflow-wrap: anywhere; }
+    footer { padding: 1.5rem 1rem; color: var(--white); background: var(--brand-dark); }
+    footer p { margin: 0; font-size: 0.88rem; }
+    footer p + p { margin-top: 0.35rem; opacity: 0.75; }
+    .noscript { margin: 1rem 0; padding: 1rem; color: var(--error); background: var(--error-bg); }
+    .hp { position: absolute; left: -9999px; }
+    @media (min-width: 38rem) { .day-tabs { grid-template-columns: repeat(7, minmax(0, 1fr)); } .grid.two { grid-template-columns: repeat(2, minmax(0, 1fr)); } .grid.three { grid-template-columns: repeat(3, minmax(0, 1fr)); } .meal-row { grid-template-columns: minmax(8rem, 0.35fr) 1fr; } .submit-row { flex-direction: row; align-items: center; } .button { width: auto; } }
+    @media (min-width: 56rem) { .hero { grid-template-columns: 1.55fr 0.75fr; align-items: end; } .progress-panel { padding: 1.25rem; } }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; transition: none !important; animation: none !important; } }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to tracker</a>
+  <header class="site-header"><div class="header-inner"><div class="wordmark" aria-label="Fujiwhara Personal Training, Point Cook"><span class="wordmark-mark" aria-hidden="true">FP</span><span>Fujiwhara Personal Training<small>Point Cook</small></span></div></div></header>
+  <main id="main-content">
+    <section class="hero" aria-labelledby="page-title">
+      <div><p class="eyebrow">Your 7-day check-in</p><h1 id="page-title">Sleep, food, drinks &amp; wellbeing tracker</h1><p class="lede">A practical daily check-in to help Emma understand the patterns behind how you sleep, eat, drink and feel. Complete one day at a time, then press <strong>Send today’s check-in</strong>.</p></div>
+      <aside class="intro-card" aria-label="How it works"><h3>About five minutes a day</h3><p>Your answers save on this device as you go, so you can return before sending.</p><p>After the first submission, FormSubmit may send Emma a one-time activation email before entries can be delivered.</p></aside>
+    </section>
+    <noscript><p class="noscript">JavaScript is required to save drafts and send this daily check-in through FormSubmit, an external delivery service.</p></noscript>
+    <div class="tracker-shell">
+      <nav class="progress-panel" aria-label="Tracker days">
+        <div class="progress-heading"><h2>Your week</h2><span class="progress-copy" id="progress-copy">0 of 7 days sent</span></div>
+        <div class="day-tabs" role="tablist" aria-label="Choose a day">
+          <button class="day-tab" type="button" role="tab" id="day-tab-1" aria-controls="daily-form-panel" aria-selected="true" data-day="1">Day 1</button>
+          <button class="day-tab" type="button" role="tab" id="day-tab-2" aria-controls="daily-form-panel" aria-selected="false" tabindex="-1" data-day="2">Day 2</button>
+          <button class="day-tab" type="button" role="tab" id="day-tab-3" aria-controls="daily-form-panel" aria-selected="false" tabindex="-1" data-day="3">Day 3</button>
+          <button class="day-tab" type="button" role="tab" id="day-tab-4" aria-controls="daily-form-panel" aria-selected="false" tabindex="-1" data-day="4">Day 4</button>
+          <button class="day-tab" type="button" role="tab" id="day-tab-5" aria-controls="daily-form-panel" aria-selected="false" tabindex="-1" data-day="5">Day 5</button>
+          <button class="day-tab" type="button" role="tab" id="day-tab-6" aria-controls="daily-form-panel" aria-selected="false" tabindex="-1" data-day="6">Day 6</button>
+          <button class="day-tab" type="button" role="tab" id="day-tab-7" aria-controls="daily-form-panel" aria-selected="false" tabindex="-1" data-day="7">Day 7</button>
+        </div>
+        <p class="legend"><span><i class="dot" aria-hidden="true"></i> Draft saved</span><span><i class="tick" aria-hidden="true">&#10003;</i> Sent</span></p>
+      </nav>
+      <section class="form-card" id="daily-form-panel" role="tabpanel" aria-labelledby="day-tab-1">
+        <div class="form-top"><h2 id="form-title">Day 1 check-in</h2><p>Required fields are marked with an asterisk.</p></div>
+        <form id="tracker-form" action="https://formsubmit.co/ajax/fujiwharapt@gmail.com" method="post">
+          <input type="hidden" name="_subject" id="subject" value="Fujiwhara 7-Day Tracker - Day 1">
+          <input type="hidden" name="_template" value="table">
+          <input type="hidden" name="_replyto" id="replyto" value="">
+          <input type="hidden" name="Tracker day" id="tracker-day" value="Day 1">
+          <input class="hp" type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <fieldset><legend>Your details</legend><p class="section-help">These details are shared across all seven days on this device.</p><div class="grid three"><div class="field"><label for="client-name">Client name *</label><input id="client-name" name="Client name" type="text" autocomplete="name" required></div><div class="field"><label for="email">Email *</label><input id="email" name="Email" type="email" autocomplete="email" inputmode="email" required></div><div class="field"><label for="entry-date">Date *</label><input id="entry-date" name="Date" type="date" required></div></div></fieldset>
+          <fieldset><legend>Sleep</legend><p class="section-help">Think about the sleep that led into this day.</p><div class="grid three"><div class="field"><label for="bedtime">Bedtime *</label><input id="bedtime" name="Bedtime" type="time" required></div><div class="field"><label for="wake-time">Wake time *</label><input id="wake-time" name="Wake time" type="time" required></div><div class="field"><label for="hours-slept">Approx. hours slept *</label><input id="hours-slept" name="Approximate hours slept" type="number" min="0" max="24" step="0.25" inputmode="decimal" placeholder="e.g. 7.5" required></div></div><div class="grid two" style="margin-top: 1rem;"><div class="field"><span class="group-label" id="sleep-quality-label">Sleep quality *</span><div class="rating" role="radiogroup" aria-labelledby="sleep-quality-label"><input id="sleep-1" name="Sleep quality (1-5)" type="radio" value="1 - Very poor" required><label for="sleep-1">1</label><input id="sleep-2" name="Sleep quality (1-5)" type="radio" value="2"><label for="sleep-2">2</label><input id="sleep-3" name="Sleep quality (1-5)" type="radio" value="3"><label for="sleep-3">3</label><input id="sleep-4" name="Sleep quality (1-5)" type="radio" value="4"><label for="sleep-4">4</label><input id="sleep-5" name="Sleep quality (1-5)" type="radio" value="5 - Excellent"><label for="sleep-5">5</label></div><div class="scale-ends"><span>Very poor</span><span>Excellent</span></div></div><div class="field"><label for="waking-feeling">How did you feel on waking? *</label><input id="waking-feeling" name="Feeling on waking" type="text" placeholder="e.g. rested, groggy, alert" required></div></div><div class="field" style="margin-top: 1rem;"><label for="sleep-notes">Sleep notes</label><textarea id="sleep-notes" name="Sleep notes" placeholder="Waking overnight, difficulty settling, unusual circumstances…"></textarea></div></fieldset>
+          <fieldset><legend>Food</legend><p class="section-help">Approximate times and simple descriptions are fine. There’s no need to count calories.</p><div class="meal-row"><div class="field"><label for="breakfast-time">Breakfast time</label><input id="breakfast-time" name="Breakfast time" type="time"></div><div class="field"><label for="breakfast-food">Breakfast food</label><input id="breakfast-food" name="Breakfast food" type="text" placeholder="What did you eat?"></div></div><div class="meal-row"><div class="field"><label for="lunch-time">Lunch time</label><input id="lunch-time" name="Lunch time" type="time"></div><div class="field"><label for="lunch-food">Lunch food</label><input id="lunch-food" name="Lunch food" type="text" placeholder="What did you eat?"></div></div><div class="meal-row"><div class="field"><label for="dinner-time">Dinner time</label><input id="dinner-time" name="Dinner time" type="time"></div><div class="field"><label for="dinner-food">Dinner food</label><input id="dinner-food" name="Dinner food" type="text" placeholder="What did you eat?"></div></div><div class="meal-row"><div class="field"><label for="snack-times">Snack time(s)</label><input id="snack-times" name="Snack times" type="text" placeholder="e.g. 10:30 am, 3 pm"></div><div class="field"><label for="snack-food">Snack food</label><input id="snack-food" name="Snack food" type="text" placeholder="What did you eat?"></div></div></fieldset>
+          <fieldset><legend>Drinks</legend><p class="section-help">Estimate your total amount for the day.</p><div class="grid three"><div class="field"><label for="water">Water</label><input id="water" name="Water" type="text" placeholder="e.g. 2 litres"></div><div class="field"><label for="tea-coffee">Tea / coffee</label><input id="tea-coffee" name="Tea or coffee" type="text" placeholder="e.g. 2 coffees"></div><div class="field"><label for="other-drinks">Other drinks &amp; amounts</label><input id="other-drinks" name="Other drinks and amounts" type="text" placeholder="e.g. 330 mL soft drink"></div></div></fieldset>
+          <fieldset><legend>How you felt</legend><div class="grid three"><div class="field"><label for="morning-feeling">Morning feeling *</label><input id="morning-feeling" name="Morning feeling" type="text" required></div><div class="field"><label for="afternoon-feeling">Afternoon feeling *</label><input id="afternoon-feeling" name="Afternoon feeling" type="text" required></div><div class="field"><label for="evening-feeling">Evening feeling *</label><input id="evening-feeling" name="Evening feeling" type="text" required></div></div><div class="field" style="margin-top: 1rem;"><span class="group-label" id="energy-label">Overall energy *</span><div class="rating" role="radiogroup" aria-labelledby="energy-label"><input id="energy-1" name="Energy (1-5)" type="radio" value="1 - Very low" required><label for="energy-1">1</label><input id="energy-2" name="Energy (1-5)" type="radio" value="2"><label for="energy-2">2</label><input id="energy-3" name="Energy (1-5)" type="radio" value="3"><label for="energy-3">3</label><input id="energy-4" name="Energy (1-5)" type="radio" value="4"><label for="energy-4">4</label><input id="energy-5" name="Energy (1-5)" type="radio" value="5 - Excellent"><label for="energy-5">5</label></div><div class="scale-ends"><span>Very low</span><span>Excellent</span></div></div><div class="field" style="margin-top: 1rem;"><label for="wellbeing-notes">Notes: mood, stress, cravings, digestion, exercise or symptoms</label><textarea id="wellbeing-notes" name="Mood stress cravings digestion exercise symptoms notes" placeholder="Share anything that may help Emma understand your day."></textarea></div></fieldset>
+          <div class="privacy-note"><strong>Your privacy:</strong> FormSubmit, an external delivery service, sends this information by email to Emma at Fujiwhara Personal Training to support your wellbeing. It is not emergency or medical monitoring. If you need urgent help, contact an appropriate emergency or health service.</div>
+          <div class="submit-row"><button class="button" id="submit-button" type="submit">Send today’s check-in</button><span class="hint" id="save-note">Drafts save automatically on this device.</span></div>
+          <div class="status" id="form-status" role="status" aria-live="polite"></div>
+        </form>
+      </section>
+      <section class="confirmation" id="confirmation" aria-labelledby="confirmation-title" tabindex="-1"><span class="confirmation-badge">Check-in sent</span><h2 id="confirmation-title">Thanks — your Day 1 check-in is on its way.</h2><p>Here’s a quick summary of what was sent to Emma.</p><dl class="summary-list" id="summary-list"></dl><button class="button button-secondary" id="another-day" type="button">Start another day</button></section>
+    </div>
+  </main>
+  <footer><div class="footer-inner"><p><strong>Fujiwhara Personal Training</strong> · Point Cook</p><p>Practical support for your health and training.</p></div></footer>
+  <script>
+    (() => {
+      'use strict';
+      const STORAGE_KEY = 'fujiwharaTracker.v1';
+      const form = document.getElementById('tracker-form');
+      const panel = document.getElementById('daily-form-panel');
+      const tabs = [...document.querySelectorAll('.day-tab')];
+      const title = document.getElementById('form-title');
+      const dayField = document.getElementById('tracker-day');
+      const subjectField = document.getElementById('subject');
+      const emailField = document.getElementById('email');
+      const replyToField = document.getElementById('replyto');
+      const status = document.getElementById('form-status');
+      const submitButton = document.getElementById('submit-button');
+      const confirmation = document.getElementById('confirmation');
+      const confirmationTitle = document.getElementById('confirmation-title');
+      const summaryList = document.getElementById('summary-list');
+      const progressCopy = document.getElementById('progress-copy');
+      const sharedNames = new Set(['Client name', 'Email']);
+      let currentDay = 1;
+      let saveTimer;
+      const blankState = () => ({ days: {}, sent: {}, client: {} });
+      const loadState = () => { try { const parsed = JSON.parse(localStorage.getItem(STORAGE_KEY)); return parsed && typeof parsed === 'object' ? { ...blankState(), ...parsed } : blankState(); } catch (error) { return blankState(); } };
+      let state = loadState();
+      const persist = () => { try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch (error) {} };
+      const formValues = () => { const values = {}; [...form.elements].forEach((field) => { if (!field.name || field.name.startsWith('_') || field.name === 'Tracker day') return; if ((field.type === 'radio' || field.type === 'checkbox') && !field.checked) return; values[field.name] = field.value; }); return values; };
+      const saveDraft = () => { const values = formValues(); state.days[currentDay] = values; sharedNames.forEach((name) => { state.client[name] = values[name] || ''; }); persist(); updateProgress(); };
+      const resetFields = () => { [...form.elements].forEach((field) => { if (!field.name || field.type === 'hidden' || field.type === 'submit') return; if (field.type === 'radio' || field.type === 'checkbox') field.checked = false; else field.value = ''; }); };
+      const restoreDay = (day) => { resetFields(); const values = { ...(state.days[day] || {}), ...state.client }; [...form.elements].forEach((field) => { if (!field.name || values[field.name] === undefined) return; if (field.type === 'radio' || field.type === 'checkbox') field.checked = field.value === values[field.name]; else field.value = values[field.name]; }); if (!document.getElementById('entry-date').value) { const today = new Date(); const localDate = new Date(today.getTime() - today.getTimezoneOffset() * 60000).toISOString().slice(0, 10); document.getElementById('entry-date').value = localDate; } updateReplyTo(); };
+      const updateProgress = () => { tabs.forEach((tab) => { const day = tab.dataset.day; const draft = state.days[day] && Object.values(state.days[day]).some(Boolean); tab.dataset.state = state.sent[day] ? 'sent' : draft ? 'draft' : 'empty'; const stateText = state.sent[day] ? ', sent' : draft ? ', draft saved' : ''; tab.setAttribute('aria-label', `Day ${day}${stateText}`); }); const total = Object.values(state.sent).filter(Boolean).length; progressCopy.textContent = `${total} of 7 ${total === 1 ? 'day' : 'days'} sent`; };
+      const selectDay = (day, moveFocus = false) => { saveDraft(); currentDay = Number(day); tabs.forEach((tab) => { const selected = Number(tab.dataset.day) === currentDay; tab.setAttribute('aria-selected', String(selected)); tab.tabIndex = selected ? 0 : -1; if (selected && moveFocus) tab.focus(); }); panel.setAttribute('aria-labelledby', `day-tab-${currentDay}`); title.textContent = `Day ${currentDay} check-in`; dayField.value = `Day ${currentDay}`; restoreDay(currentDay); updateSubject(); status.className = 'status'; status.textContent = ''; panel.hidden = false; confirmation.classList.remove('is-visible'); updateProgress(); };
+      const updateSubject = () => { const clientName = document.getElementById('client-name').value.trim(); subjectField.value = `Fujiwhara 7-Day Tracker - Day ${currentDay} - ${clientName || 'Client'}`; };
+      const updateReplyTo = () => { replyToField.value = emailField.value.trim(); };
+      tabs.forEach((tab) => { tab.addEventListener('click', () => selectDay(tab.dataset.day)); tab.addEventListener('keydown', (event) => { if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return; event.preventDefault(); let next = currentDay; if (event.key === 'ArrowLeft') next = currentDay === 1 ? 7 : currentDay - 1; if (event.key === 'ArrowRight') next = currentDay === 7 ? 1 : currentDay + 1; if (event.key === 'Home') next = 1; if (event.key === 'End') next = 7; selectDay(next, true); }); });
+      form.addEventListener('input', (event) => { if (event.target.id === 'client-name') updateSubject(); if (event.target === emailField) updateReplyTo(); window.clearTimeout(saveTimer); saveTimer = window.setTimeout(saveDraft, 250); });
+      form.addEventListener('change', saveDraft);
+      const addSummaryItem = (label, value) => { const row = document.createElement('div'); const term = document.createElement('dt'); const detail = document.createElement('dd'); term.textContent = label; detail.textContent = value || 'Not provided'; row.append(term, detail); summaryList.append(row); };
+      const showConfirmation = (sentDay, values) => { summaryList.textContent = ''; addSummaryItem('Day and date', `Day ${sentDay} · ${values.Date}`); addSummaryItem('Sleep', `${values['Approximate hours slept']} hours · quality ${values['Sleep quality (1-5)']}`); addSummaryItem('Energy', values['Energy (1-5)']); addSummaryItem('Morning', values['Morning feeling']); addSummaryItem('Afternoon', values['Afternoon feeling']); addSummaryItem('Evening', values['Evening feeling']); confirmationTitle.textContent = `Thanks — your Day ${sentDay} check-in is on its way.`; panel.hidden = true; confirmation.classList.add('is-visible'); confirmation.focus(); };
+      form.addEventListener('submit', async (event) => { event.preventDefault(); if (!form.reportValidity()) return; saveDraft(); updateSubject(); updateReplyTo(); const sentDay = currentDay; const values = formValues(); const controller = new AbortController(); const timeout = window.setTimeout(() => controller.abort(), 15000); submitButton.disabled = true; submitButton.textContent = 'Sending…'; status.className = 'status is-visible'; status.textContent = 'Sending your check-in through FormSubmit, an external delivery service…'; try { const response = await fetch(form.action, { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' }, signal: controller.signal }); let result = {}; try { result = await response.json(); } catch (error) {} if (!response.ok || result.success === false || result.success === 'false') throw new Error(result.message || 'The check-in could not be sent.'); state.sent[sentDay] = true; persist(); updateProgress(); status.className = 'status success is-visible'; status.textContent = `Day ${sentDay} sent successfully.`; showConfirmation(sentDay, values); } catch (error) { const timedOut = error.name === 'AbortError'; status.className = 'status error is-visible'; status.textContent = timedOut ? 'Sending took longer than 15 seconds. Your draft is safe — please check your connection and try again.' : 'We could not send your check-in. Your draft is safe — please check your connection and try again.'; status.focus?.(); } finally { window.clearTimeout(timeout); submitButton.disabled = false; submitButton.textContent = 'Send today’s check-in'; } });
+      document.getElementById('another-day').addEventListener('click', () => { const nextUnsent = tabs.find((tab) => !state.sent[tab.dataset.day]); const nextDay = nextUnsent ? Number(nextUnsent.dataset.day) : (currentDay % 7) + 1; selectDay(nextDay); panel.scrollIntoView({ behavior: 'smooth', block: 'start' }); document.getElementById('entry-date').focus(); });
+      restoreDay(1); updateSubject(); updateProgress();
+    })();
+  </script>
+</body>
+</html>
